@@ -13,10 +13,10 @@ import time
 ## h <- learning parameter
 # output: updated weight matrix <- W
 def ndram_learn(W, x0, xt, h):
-    left = np.outer(x0, x0).astype(float)
-    right = np.outer(xt, xt).astype(float)
+    left = np.outer(x0, x0)
+    right = np.outer(xt, xt)
 
-    return np.array(W + h * np.array(left - right)).astype(float)
+    return np.array(W + h * np.array(left - right))
 
 # convergence equation (convergence: _lambda -> 1; d_delta -> 0)
 # inputs:
