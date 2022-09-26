@@ -101,6 +101,9 @@ def readout_and_counter(timer, counter, _lambda, d_lambda):
     counter+=1
     return counter
 
+def loop_init():
+    return 0, 1, 1, time.time()
+
 # test - 28 signals with subsequent 1s
 side = 28
 blank = [-1] * side
@@ -115,11 +118,8 @@ W = initial_weights(side)
 h = 0.001
 delta = 0.1
 
-# prepare loop helper data
-_lambda = 0
-d_lambda = 1
-counter = 1
-timer = time.time()
+# prepare data
+_lambda, d_lambda, counter, timer = loop_init()
 
 # easy to loop around _lambda
 while _lambda < 0.999:
@@ -133,9 +133,5 @@ while _lambda < 0.999:
     _lambda, d_lambda = convergence(W, h, delta)
 
 # sanity check with the orginal stimuli
-test = [blank.copy() for i in range(28)]
-for i,t in enumerate(test):
-    t[i] = 1
-
-for t in test:
-    print(np.dot(W, t))
+for x0 in stimuli:
+    print(np.dot(W, x0))
