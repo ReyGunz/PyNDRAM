@@ -31,7 +31,7 @@ def delta_lambda(h, delta, _lambda):
 def transmit_single(ai, delta):
     if ai > 1:
         return 1
-    elif ai < -1:
+    if ai < -1:
         return -1
     return ((delta + 1) * ai - delta * ai**3)
 
@@ -92,7 +92,7 @@ def convergence(W, h, delta):
 # print updates
 def progress(timer, counter, _lambda, d_lambda):
     timer2 = time.time()
-    if counter%5 == 0:
+    if counter%10 == 0:
         print(counter, ": total elapsed: ", timer2-timer, ", lambda: ", _lambda, ", d_lambda: ", d_lambda)
     counter+=1
     return counter
@@ -124,7 +124,7 @@ _lambda, d_lambda, counter, timer = loop_init()
 while _lambda < 0.9999:
     # for each stimuli, transmit n times, then update weight matrix
     for x0 in stimuli:
-        W = transmit_and_learn(W, x0, delta, h, 7)
+        W = transmit_and_learn(W, x0, delta, h, 10)
 
     # update convergence values
     _lambda, d_lambda = convergence(W, h, delta)

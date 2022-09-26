@@ -36,7 +36,7 @@ def delta_lambda(h, delta, _lambda):
 def transmission_single(ai, delta):
     if ai > 1:
         return 1
-    elif ai < -1:
+    if ai < -1:
         return -1
     return ((delta + 1) * ai - delta * ai**3)
 
@@ -126,7 +126,7 @@ delta = 0.5
 _lambda, d_lambda, counter, timer = loop_init()
 
 # easy to loop around _lambda (converges to 1)
-while _lambda < 0.999:
+while _lambda < 0.9999:
     
     # for each stimuli, transmit n times, then update weight matrix
     for x0 in stimuli:
