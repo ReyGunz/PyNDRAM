@@ -117,7 +117,7 @@ delta = 0.1
 
 # prepare loop helper data
 _lambda = 0
-d_lambda = 0
+d_lambda = 1
 counter = 1
 timer = time.time()
 
