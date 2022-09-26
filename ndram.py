@@ -113,9 +113,12 @@ stimuli = [blank.copy() for i in range(28)]
 for i, x0 in enumerate(stimuli):
     x0[i] = 1
 
-# generate weights, provide parameters (as suggested in NDRAM paper)
+# generate weights
 W = initial_weights(side)
+
+# learning parameter (suggested 0.001 - 0.002)
 h = 0.001
+# transmission parameter (suggested 0.1 - 0.5)
 delta = 0.1
 
 # prepare data
