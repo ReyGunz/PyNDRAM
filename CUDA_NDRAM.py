@@ -31,14 +31,14 @@ def delta_lambda(h, delta, _lambda):
 ## ai <- element to be transmitted
 ## delta <- transmission parameter
 # output: transmission amount
+# (feels unnatural to send logic to GPU, but worth a shot!)
 @cuda.jit
 def transmission_single(ai, delta):
     if ai > 1:
         return 1
     elif ai < -1:
         return -1
-    else:
-        return ((delta + 1) * ai - delta * ai**3)
+    return ((delta + 1) * ai - delta * ai**3)
 
 # list-based transmission helper
 # inputs:
@@ -95,10 +95,10 @@ def convergence(W, h, delta):
     return _lambda, d_lambda
 
 # print updates
-def readout_and_counter(timer, counter, _lambda, d_lambda):
+def progress(timer, counter, _lambda, d_lambda):
     timer2 = time.time()
     if counter%10 == 0:
-        print(counter, ": total elapsed: ", time.time()-timer, ", lambda: ", _lambda, ", d_lambda: ", d_lambda)
+        print(counter, ": total elapsed: ", timer2-timer, ", lambda: ", _lambda, ", d_lambda: ", d_lambda)
     counter+=1
     return counter
 
@@ -127,7 +127,6 @@ _lambda, d_lambda, counter, timer = loop_init()
 
 # easy to loop around _lambda (converges to 1)
 while _lambda < 0.999:
-    counter = readout_and_counter(timer, counter, _lambda, d_lambda)
     
     # for each stimuli, transmit n times, then update weight matrix
     for x0 in stimuli:
@@ -135,6 +134,9 @@ while _lambda < 0.999:
 
     # update convergence values
     _lambda, d_lambda = convergence(W, h, delta)
+
+    # readout
+    counter = progress(timer, counter, _lambda, d_lambda)
 
 # sanity check with the orginal stimuli
 for x0 in stimuli:
