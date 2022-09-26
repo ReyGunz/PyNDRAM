@@ -117,8 +117,8 @@ for i, x0 in enumerate(stimuli):
 # generate weights
 W = initial_weights(side)
 
-# learning parameter (suggested 0.001 - 0.002)
-h = 0.001
+# learning parameter (suggested 0.001 - 0.00197)
+h = 0.00197
 # transmission parameter (suggested 0.1 - 0.5)
 delta = 0.5
 
