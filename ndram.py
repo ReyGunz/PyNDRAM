@@ -16,7 +16,7 @@ def ndram_learn(W, x0, xt, h):
     left = np.outer(x0, x0).astype(float)
     right = np.outer(xt, xt).astype(float)
 
-    return np.array(W + h * np.array(left - right, dtype=object), dtype=object).astype(float)
+    return np.array(W + h * np.array(left - right)).astype(float)
 
 # convergence equation (convergence: _lambda -> 1; d_delta -> 0)
 # inputs:
