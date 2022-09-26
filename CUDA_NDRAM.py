@@ -105,7 +105,7 @@ def readout_and_counter(timer, counter, _lambda, d_lambda):
 def loop_init():
     return 0, 1, 1, time.time()
 
-# test - 28 signals with subsequent 1s
+# test - 28/3 signals with subsequent 1s (paper experiments w/ 34% load)
 side = 128
 blank = [-1] * side
 blank = np.array(blank)
